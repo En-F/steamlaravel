@@ -36,7 +36,7 @@ Route::get('/clientes/create',function(){
 
 //cliente es el nombre de la tabla si quieres ponerle el nombre del modelo le tienes que dar la ruta
 // del modelo
-Route::post('/clientes/create', function(Request  $request){
+Route::post('/clientes', function(Request  $request){
     $validated = $request->validate([
         'dni'=>'required|max:9|unique:clientes',
         'nombre'=>'required|max:255',
@@ -51,7 +51,7 @@ Route::post('/clientes/create', function(Request  $request){
 
 
 //marcador {} representa un valor que luego se va a recoger
-Route::delete('/clientes/borrar/{cliente}',function(Cliente  $cliente){
+Route::delete('/clientes/{cliente}',function(Cliente  $cliente){
     $cliente->delete();
 
     //redireccion a otra página con un respons, pero se modifica para que nos deje en otro lado
@@ -59,4 +59,22 @@ Route::delete('/clientes/borrar/{cliente}',function(Cliente  $cliente){
 });
 
 
+Route::get('/clientes/{cliente}/edit', function(Cliente $cliente){
+    return view('clientes.edit',[
+        'cliente' => $cliente,
+    ]);
+});
 
+
+Route::put('/clientes/{cliente}', function(Cliente $cliente,Request $request){
+    $validated = $request->validate([
+            'dni'=>'required|max:9|unique:clientes,dni,' . $cliente->id,
+            'nombre'=>'required|max:255',
+            'apellidos'=>'nullable|max:255',
+            'direccion'=>'nullable|max:255',
+            'cospostal'=> 'nullable|numeric|decimal:0|digits:5',
+            'telefono' => 'nullable|max:255'
+        ]);
+        $cliente->update($validated);
+        return redirect('/clientes');
+});
