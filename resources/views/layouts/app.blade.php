@@ -14,12 +14,36 @@
         </style>
     @endif
 </head>
-<body class="font-sans antialiased">
-        <div class="min-h-scrren bg-gray-100">
-            <main>
-                {{-- Contiene la vista que tu vas a renderizar --}}
-                {{ $slot }}
-            </main>
+<body>
+    <div class="min-h-screen gb-gray-100">
+        {{-- Barra Superior --}}
+        <div class="navbar bg-base-100 shadow-sm">
+            <div class="flex-1">
+                <a href="/" class=" btn-ghost text-xl">Steam</a>
+            </div>
+
+            <div class=" flex-none">
+                <ul class="menu menu-horizontal px-1">
+                    <li><a href="">Tienda</a></li>
+                    <li><a href="">Biblioteca</a></li>
+                    <li>
+                        <details>
+                            <summary>Menu</summary>
+                            <ul class="bg-base-100 rounded-t-none p-2">
+                                <li><a href="">Opciones</a></li>
+                                <li><a href="">Salir</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
         </div>
+
+        {{-- Principal --}}
+        <main class=" m-24">
+            {{-- Contiene la vista que tu vas a renderizar --}}
+            {{ $slot }}
+        </main>
+    </div>
 </body>
 </html>
