@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{-- Genera el token y se guarda en el csrgf-token --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Mi Aplicación</title>
+    <title>Mi aplicación</title>
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
@@ -14,21 +14,21 @@
         </style>
     @endif
 </head>
+
 <body>
-    <div class="min-h-screen gb-gray-100">
-        {{-- Barra Superior --}}
+    <div class="min-h-screen bg-gray-200">
+        <!-- Barra superior -->
         <div class="navbar bg-base-100 shadow-sm">
             <div class="flex-1">
-                <a href="/" class=" btn-ghost text-xl">Steam</a>
+                <a href="/" class="btn btn-ghost text-xl">Steam</a>
             </div>
-
-            <div class=" flex-none">
+            <div class="flex-none">
                 <ul class="menu menu-horizontal px-1">
                     <li><a href="">Tienda</a></li>
                     <li><a href="">Biblioteca</a></li>
                     <li>
                         <details>
-                            <summary>Menu</summary>
+                            <summary>Menú</summary>
                             <ul class="bg-base-100 rounded-t-none p-2">
                                 <li><a href="">Opciones</a></li>
                                 <li><a href="">Salir</a></li>
@@ -38,12 +38,11 @@
                 </ul>
             </div>
         </div>
-
-        {{-- Principal --}}
-        <main class=" m-24">
-            {{-- Contiene la vista que tu vas a renderizar --}}
+        <!-- Principal -->
+        <main class="m-6">
             {{ $slot }}
         </main>
     </div>
 </body>
+
 </html>
