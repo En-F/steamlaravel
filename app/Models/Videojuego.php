@@ -3,12 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Videojuego extends Model
 {
-    public function desarrolladora(): HasOne
+    protected $fillable = [
+        'nombre',
+        'precio',
+        'lanzamiento',
+        'desarrolladora_id'
+    ];
+    public function desarrolladora(): BelongsTo
     {
-        return $this-> hasOne(Desarrolladora::class);
+        return $this-> BelongsTo(Desarrolladora::class);
     }
 }
