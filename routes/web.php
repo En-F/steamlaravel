@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Cliente;
+use App\Models\Videojuego;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -77,4 +78,10 @@ Route::put('/clientes/{cliente}', function(Cliente $cliente,Request $request){
         ]);
         $cliente->update($validated);
         return redirect('/clientes');
+});
+
+Route::get('/videojuegos',function(){
+    return view('videojuegos.index',[
+        'videojuegos' => Videojuego::all(),
+    ]);
 });
