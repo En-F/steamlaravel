@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VideojuegoController;
 use App\Models\Cliente;
 use App\Models\Videojuego;
 use Illuminate\Http\Request;
@@ -80,8 +81,12 @@ Route::put('/clientes/{cliente}', function(Cliente $cliente,Request $request){
         return redirect('/clientes');
 });
 
-Route::get('/videojuegos',function(){
-    return view('videojuegos.index',[
-        'videojuegos' => Videojuego::all(),
-    ]);
-});
+
+// Route::get('/Videojuegos',[Videojuegocontroller::class,'index']);
+// Route::get('/Videojuegos',[Videojuegocontroller::class,'create']);
+
+//Equivalente a poner las 7 rutas
+Route::resource('Videojuegos',VideojuegoController::class);
+
+
+

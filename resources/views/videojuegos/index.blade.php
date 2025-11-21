@@ -5,18 +5,18 @@
             <th scope="col" class="px-6 py-3 font-medium">Nombre</th>
             <th scope="col" class="px-6 py-3 font-medium">Precio</th>
             <th scope="col" class="px-6 py-3 font-medium">Lanzamiento</th>
-            <th scope="col" class="px-6 py-3 font-medium">Desarrolladora</th>
+            <th scope="col" class="px-6 py-3 font-medium">Nombre de Desarrolladora</th>
             <!-- <th scope="col" class="px-6 py-3 font-medium" colspan="2">Acciones</th> -->
         </thead>
-        <body>
+        <tbody>
             @foreach ($videojuegos as $videojuego)
             <tr class="bg-neutral-primary border-b border-default">
                 <td class="px-6 py-4">{{ $videojuego->nombre }}</td>
-                <td class="px-6 py-4">{{ $videojuego->precio }}</td>
-                <td class="px-6 py-4">{{ $videojuego->lanzamiento }}</td>
-                <td class="px-6 py-4">{{ $videojuego->desarrolladora->id }}</td>
+                <td class="px-6 py-4">{{ $videojuego->precio_formateado }}</td>
+                <td class="px-6 py-4">{{ $videojuego->lanzamiento_formateado }}</td>
+                <td class="px-6 py-4">{{ $videojuego->desarrolladora->denominacion }}</td>
             </tr>
             @endforeach
-        </body>
+        </tbody>
     </table>
 </x-app-layout>

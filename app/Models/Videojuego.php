@@ -13,6 +13,23 @@ class Videojuego extends Model
         'lanzamiento',
         'desarrolladora_id'
     ];
+
+    protected $casts = [
+        'lanzamiento' => 'datetime'
+    ];
+
+    public function getLanzamientoFormateadoAttribute():string{
+        return fecha_larga($this->lanzamiento);
+    }
+
+    public function getPrecioFormateadoAttribute()
+    {
+        $formatter =  new \NumberFormatter('es_ES',\NumberFormatter::CURRENCY);
+        return $formatter->formatCurrency($this->precio,'EUR');
+        //return number_format($valor,2,',','-'). ' €';
+    }
+
+
     public function desarrolladora(): BelongsTo
     {
         return $this-> BelongsTo(Desarrolladora::class);
