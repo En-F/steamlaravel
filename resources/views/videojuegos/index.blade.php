@@ -6,6 +6,8 @@
             <th scope="col" class="px-6 py-3 font-medium">Precio</th>
             <th scope="col" class="px-6 py-3 font-medium">Lanzamiento</th>
             <th scope="col" class="px-6 py-3 font-medium">Nombre de Desarrolladora</th>
+            <th scope="col" class="px-6 py-3 font-medium">Acciones</th>
+
             <!-- <th scope="col" class="px-6 py-3 font-medium" colspan="2">Acciones</th> -->
         </thead>
         <tbody>
@@ -15,8 +17,20 @@
                 <td class="px-6 py-4">{{ $videojuego->precio_formateado }}</td>
                 <td class="px-6 py-4">{{ $videojuego->lanzamiento_formateado }}</td>
                 <td class="px-6 py-4">{{ $videojuego->desarrolladora->denominacion }}</td>
+                <td class="px-6 py-4">
+                    <form action="{{ route('videojuegos.destroy', $videojuego->id) }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit">Borrar</button>
+                    </form>
+                </td>
+
             </tr>
             @endforeach
         </tbody>
     </table>
+    <br>
+    <a href="videojuegos/create">
+        Crear videojuego
+    </a>
 </x-app-layout>

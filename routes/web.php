@@ -86,7 +86,7 @@ Route::put('/clientes/{cliente}', function(Cliente $cliente,Request $request){
 // Route::get('/Videojuegos',[Videojuegocontroller::class,'create']);
 
 //Equivalente a poner las 7 rutas
-Route::resource('Videojuegos',VideojuegoController::class);
+Route::resource('videojuegos',VideojuegoController::class);
 
 
 
