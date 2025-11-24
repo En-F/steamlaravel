@@ -1,14 +1,5 @@
 <x-app-layout>
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-        <div role="alert" class="alert alert-error mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>{{ $error }}</span>
-        </div>
-        @endforeach
-    @endif
+    <x-errores />
     <div>
         <h2 class="text-2xl  font-bold mb-3">Insertar un videojuego</h2>
          <form action="/videojuegos" method="POST" class="card bg-base-200 p-6 shadow">
@@ -23,13 +14,17 @@
             </label>
             <label for="lanzamiento" class="floating-label">
                 <span>Lanzamiento:*</span>
-                <input class="input" type="text" id="lanzamiento" name="lanzamiento" value="{{ old('lanzamiento') }}"><br>
+                <input class="input" type="date" id="lanzamiento" name="lanzamiento" value="{{ old('lanzamiento') }}"><br>
             </label>
             <label for="desarrolladora_id" class="floating-label">
                 <span>Desarrolladora:*</span>
-                <select name="desarrolladora_id" id="input">
-                    @foreach ($desarrolladoras as $d)
-                    <option value="{{ $d->id }}">{{ $d->denominacion}}</option>
+                <select class="select" name="desarrolladora_id" id="desarrolladora_id">
+                    @foreach ($desarrolladoras as $desarrolladora)
+                    <option
+                    value="{{ $desarrolladora->id }}"
+                    {{ old('desarrolladora_id')  == $desarrolladora->id ? 'selected': ''}}>
+                        {{ $desarrolladora->denominacion}}
+                    </option>
                     @endforeach
                 </select>
             </label>

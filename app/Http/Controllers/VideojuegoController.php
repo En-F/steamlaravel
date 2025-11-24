@@ -24,7 +24,7 @@ class VideojuegoController extends Controller
     public function create()
     {
         return view('videojuegos.create',[
-            'desarrolladoras' =>Desarrolladora::all()
+            'desarrolladoras' =>Desarrolladora::all(),
         ]);
     }
 
@@ -35,12 +35,12 @@ class VideojuegoController extends Controller
     {
         $validate = $request->validate([
             'nombre'=>'required|max:255',
-            'precio'=>'required|numeric|decimal:2|gte:-999999.99|lte:999999.99 ',
+            'precio'=>'required|numeric|decimal:2|gte:-999999.99|lte:999 ',
             'lanzamiento' =>'required|date',
             'desarrolladora_id' =>'required|exists:desarrolladoras,id'
         ]);
         Videojuego::create($validate);
-        return redirect('/videojuegos');
+        return redirect()->route('videojuegos.index');
     }
 
     /**
@@ -72,6 +72,7 @@ class VideojuegoController extends Controller
      */
     public function destroy(Videojuego $videojuego)
     {
-        //
+        $videojuego->delete();
+        return redirect('/videojuegos');
     }
 }
