@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EditoraController;
 use App\Http\Controllers\VideojuegoController;
 use App\Models\Cliente;
 use App\Models\Videojuego;
@@ -87,6 +88,8 @@ Route::put('/clientes/{cliente}', function(Cliente $cliente,Request $request){
 
 //Equivalente a poner las 7 rutas
 Route::resource('videojuegos',VideojuegoController::class);
+Route::resource('editoras',EditoraController::class);
+
 
 
 

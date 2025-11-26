@@ -34,4 +34,13 @@ class Videojuego extends Model
     {
         return $this-> BelongsTo(Desarrolladora::class);
     }
+
+    public function editora(): BelongsTo
+    {
+        return $this->desarrolladora->editora();
+    }
+
+
+
+
 }
