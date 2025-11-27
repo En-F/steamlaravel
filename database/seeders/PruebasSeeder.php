@@ -33,6 +33,13 @@ class PruebasSeeder extends Seeder
             'lanzamiento' => Carbon::yesterday(),
             'desarrolladora_id'=>$desarrolladora_id,
         ]);
+
+        DB::table('generos')->insert([
+            ['genero' => 'Ciendia-ficcion'],
+            ['genero' => 'Terror'],
+        ]);
+
         }
+
     }
 }
