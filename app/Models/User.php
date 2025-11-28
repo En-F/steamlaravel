@@ -3,9 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use PhpParser\Node\Expr\FuncCall;
 
 class User extends Authenticatable
 {
@@ -45,4 +50,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    //HasOne se pone cuando es 0 a 1
+    public function cliente(): HasOne{
+        return $this->hasOne(Cliente::class);
+    }
+
+    public function videjuegos(): BelongsToMany{
+        return $this->belongsToMany(Videojuego::class);
+
+    }
+
+    public function logros(){
+        return $this->belongsToMany(Logro::class);
+    }
+
+
+
 }

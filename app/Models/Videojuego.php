@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Videojuego extends Model
 {
@@ -43,9 +44,22 @@ class Videojuego extends Model
 
 
     public function generos(): BelongsToMany{
-        //2(->) para acceder a las columnas create_at,upadated_at
+        //2(->) para acceder a las columnas create_at,zupadated_at
         return $this->belongsToMany(Genero::class)->withTimestamps();
     }
+
+
+
+    public function logros(): HasMany{
+        return $this->hasMany(Logro::class);
+    }
+
+
+    public function users(): BelongsToMany{
+        return $this->belongsToMany(User::class);
+
+    }
+
 
 
 }

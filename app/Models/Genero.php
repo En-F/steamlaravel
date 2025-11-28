@@ -12,6 +12,9 @@ class Genero extends Model
     ];
 
     public function videojuegos(): BelongsToMany{
-        return $this->belongsToMany(Videojuego::class)->withTimestamps()->withPivot();
+        return $this->belongsToMany(Videojuego::class)->withTimestamps();
+    }public function save(array $options = [])
+    {
+        return parent::save($options);
     }
 }

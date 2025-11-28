@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('desarrolladoras', function (Blueprint $table) {
-            $table->foreignId('editora_id')->constrained();
+        Schema::create('logro_user', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('logro_id')->constrained();
+            $table->primary(['logro_id','user_id']);
+            $table->index('logro_id');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('desarrolladoras', function (Blueprint $table) {
-            $table->dropColumn(columns: 'editora_id');
-        });
+        Schema::dropIfExists('logro_user');
     }
 };
