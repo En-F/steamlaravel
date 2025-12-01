@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Desarrolladora;
+use App\Models\Genero;
 use App\Models\Videojuego;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+
+use function Pest\Laravel\get;
 
 class VideojuegoController extends Controller
 {
@@ -48,8 +52,17 @@ class VideojuegoController extends Controller
      */
     public function show(Videojuego $videojuego)
     {
+        //este te genera 2 select
+        //$otros_generos = Genero::whereNotIn('id',$videojuego->generos->pluck('id'))->get();
+
+        //Este te genera un solo select.
+        $otros_generos = Genero::whereDoesntHave('videojuegos',  function(Builder $q) use ($videojuego){
+            $q->where('videojuego_id',$videojuego->id);
+        })->get();
+
         return view('videojuegos.show',[
-            'videjuego' => $videojuego,
+            'videojuego' => $videojuego,
+            'otros_generos' => $otros_generos,
         ]);
     }
 
@@ -77,4 +90,30 @@ class VideojuegoController extends Controller
         $videojuego->delete();
         return redirect('/videojuegos');
     }
-}
+
+
+    public function agregar_genero(Request $request,Videojuego $videojuego){
+        $validate = $request->validate([
+            'genero_id' => 'required|exists:generos,id'
+        ]);
+        $genero = Genero::findOrFail($validate['genero_id']);
+        if($videojuego->generos()->where('id',$genero->id)->exists())
+        {
+            return back()->withErrors(['genero_id' => 'Videojuego ya tiene ese género.']);
+        };
+        $videojuego->generos()->attach($genero);
+        return  redirect()->route('videojuegos.show',$videojuego);
+    }
+
+    public function quitar_genero(Request $request,Videojuego $videojuego,Genero $genero)
+    {
+        if(!$videojuego->generos()->where('id',$genero->id)->exists())
+        {
+            return back()->withErrors(['genero_id' => 'El videojuego ya tiene ese genero ']);
+        };
+        $videojuego->generos()->detach($genero);
+        return  redirect()->route('videojuegos.show',$videojuego);
+    }
+};
+
+

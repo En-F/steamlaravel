@@ -13,11 +13,12 @@
         <tbody>
             @foreach ($videojuegos as $videojuego)
             <tr class="bg-neutral-primary border-b border-default">
-                <td class="px-6 py-4">
-                    <a class="hover" href="{{ route('videojuego.show', $videojuego) }}">
+                 <td>
+                    <a class="link link-primary"
+                        href="{{ route('videojuegos.show', $videojuego) }}">
                         {{ $videojuego->nombre }}
                     </a>
-                </td>
+                    </td>
                 <td class="px-6 py-4">{{ $videojuego->precio_formateado }}</td>
                 <td class="px-6 py-4">{{ $videojuego->lanzamiento_formateado }}</td>
                 <td class="px-6 py-4">{{ $videojuego->desarrolladora->denominacion }}</td>
