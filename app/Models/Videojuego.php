@@ -45,7 +45,9 @@ class Videojuego extends Model
 
     public function generos(): BelongsToMany{
         //2(->) para acceder a las columnas create_at,zupadated_at
-        return $this->belongsToMany(Genero::class)->withTimestamps();
+        return $this->belongsToMany(Genero::class)
+        ->withTimestamps()
+        ->orderBy('genero');
     }
 
 

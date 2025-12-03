@@ -15,6 +15,7 @@
                     Géneros
                 </li>
 
+                {{-- Ordenear los generos que tiene el videojuego --}}
                 @foreach ($videojuego->generos as $genero)
                     <li class="list-row">
                         <div>
