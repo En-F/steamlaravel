@@ -5,17 +5,16 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use GuzzleHttp\Client;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PhpParser\Node\Expr\FuncCall;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -56,10 +55,16 @@ class User extends Authenticatable
         return $this->hasOne(Cliente::class);
     }
 
-    public function videjuegos(): BelongsToMany{
-        return $this->belongsToMany(Videojuego::class);
+    public function videojuegos(): MorphToMany{
+        return $this->morphedByMany(Videojuego::class,'adquirible');
 
     }
+
+    public function hardware(): MorphToMany{
+        return $this->morphedByMany(Hardware::class,'adquirible');
+
+    }
+
 
     public function logros(){
         return $this->belongsToMany(Logro::class);

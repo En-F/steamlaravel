@@ -16,7 +16,14 @@
     <table class="w-full text-sm text-left rtl:text-right text-body">
         <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
             <th scope="col" class="px-6 py-3 font-medium">
-                <a class="btn btn-ghost" href="{{$request->fullUrlWithQuery(['Ascendente'])}}">Género</a>
+                <a class="btn btn-ghost"
+                {{--Etiqueta de apertura de php --}}
+                @php
+                    //modificamos el valor que va a tener el sentido y la colocacion de la flecha al lado
+                    $sentido = $sentido == 'asc' ? 'desc' : 'asc';
+                    $flecha = $sentido == 'asc' ? '↑':'↓';
+                @endphp
+                href="{{ request()->fullUrlWithQuery(['sentido' => $sentido]) }}">Género {{ $flecha }}</a>
             </th>
 
             <!-- <th scope="col" class="px-6 py-3 font-medium" colspan="2">Acciones</th> -->
@@ -25,6 +32,18 @@
             @foreach ($generos as $genero)
             <tr class="bg-neutral-primary border-b border-default">
                 <td class="px-6 py-4">{{ $genero->genero }}</td>
+                <td>
+                <form action="{{ route('generos.destroy', $genero) }}"
+                method="POST"
+                >
+                @method('DELETE')
+                @csrf
+                    <button class="btn btn-square btn-ghost">🗑</button>
+                    </form>
+                </td>
+                <td>
+                    <a href="{{ route('generos.edit',$genero) }}">🖉</a>
+                </td>
             </tr>
             @endforeach
         </tbody>

@@ -14,13 +14,17 @@ class GeneroController extends Controller
     public function index(Request $request)
     {
 
-        $q = Genero::orderBy('genero');
-        if($buscar = $request->query('buscar')){
-            $q->whereLike('genero',"%$buscar%",false);
+        $q = Genero::query();
+        if ($buscar = $request->query('buscar')) {
+            $q->whereLike('genero', "%$buscar%", false);
         }
-        return view('generos.index',[
-            'generos' => $q->paginate(5)->withQueryString(),
-            'buscar' => $buscar
+        $sentido = $request->query('sentido') == 'desc' ? 'desc': 'asc';
+        $q->orderBy('genero',$sentido);
+        return view('generos.index', [
+
+            'generos' => $q->paginate(5)->withQueryString() , //guarda la url completa
+            'buscar' => $buscar,
+            'sentido' => $sentido,
         ]);
     }
 
@@ -58,7 +62,9 @@ class GeneroController extends Controller
      */
     public function edit(Genero $genero)
     {
-        //
+        return view('generos.edit',[
+            'genero' => $genero,
+        ]);
     }
 
     /**
@@ -74,6 +80,12 @@ class GeneroController extends Controller
      */
     public function destroy(Genero $genero)
     {
-        //
+       if ($genero->videojuegos()->exists()) {
+            return back()->with('fallo', 'El género tiene videojuegos');
+        }
+        $genero->delete();
+        return redirect()
+            ->route('generos.index')
+            ->with('exito', 'Género borrado correctamente');
     }
 }
