@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\EditoraController;
 use App\Http\Controllers\GeneroController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\VideojuegoController;
 use App\Models\Cliente;
+use App\Models\User;
 use App\Models\Videojuego;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -97,6 +100,10 @@ Route::post('videojuegos/{videojuego}/agregar_genero', [VideojuegoController::cl
 Route::delete('videojuegos/{videojuego}/quitar_genero/{genero}', [VideojuegoController::class,'quitar_genero'])->name('videojuegos.quitar_genero');
 
 Route::redirect('/',route('videojuegos.index'));
+
+Route::resource('generos',UsuarioController::class);
+
+Route::get('/users/ver_perfil/1', [UsuarioController::class, 'see_profile'])->name('users.profile');
 
 
 

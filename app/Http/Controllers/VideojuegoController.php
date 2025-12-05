@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Desarrolladora;
 use App\Models\Genero;
+use App\Models\Hardware;
+use App\Models\User;
 use App\Models\Videojuego;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -56,6 +58,8 @@ class VideojuegoController extends Controller
         //$otros_generos = Genero::whereNotIn('id',$videojuego->generos->pluck('id'))->get();
 
         //Este te genera un solo select.
+        $hardware = Hardware::all();
+        $user = User::all();
         $otros_generos = Genero::whereDoesntHave('videojuegos',  function(Builder $q) use ($videojuego){
             $q->where('videojuego_id',$videojuego->id);
         })->orderBy('genero')->get();
@@ -63,7 +67,9 @@ class VideojuegoController extends Controller
         return view('videojuegos.show', [
             'videojuego' => $videojuego,
             'otros_generos' => $otros_generos,
+            'harwdare' => $hardware,
         ]);
+
     }
 
     /**

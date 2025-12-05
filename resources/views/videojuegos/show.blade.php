@@ -7,8 +7,10 @@
                 alt="Shoes" />
         </figure>
         <div class="card-body">
-            <h2 class="card-title text-3xl uppercase">{{ $videojuego->nombre }}
-            </h2>
+            <h2 class="card-title text-3xl uppercase">{{ $videojuego->nombre }}</h2>
+            <a href="{{ route('user.profile') }}">
+                <button class="btn btn-ghost">Perfil</button>
+            </a>
 
             <ul class="list bg-base-100 rounded-box shadow-md">
                 <li class="p-4 pb-2 opacity-60 tracking-wide text-xl">
@@ -29,6 +31,7 @@
                                 </a>
                             </div>
                         </div>
+
                         <form action="{{ route('videojuegos.quitar_genero',['videojuego' => $videojuego,'genero' => $genero]) }}"
                         method="POST"
                         >
