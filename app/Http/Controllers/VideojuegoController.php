@@ -58,11 +58,12 @@ class VideojuegoController extends Controller
         //Este te genera un solo select.
         $otros_generos = Genero::whereDoesntHave('videojuegos',  function(Builder $q) use ($videojuego){
             $q->where('videojuego_id',$videojuego->id);
-        })->get();
+        })->orderBy('genero')->get();
 
-        return redirect()
-            ->route('videojuegos.show', $videojuego)
-            ->with('exito', 'Género agregado');
+        return view('videojuegos.show', [
+            'videojuego' => $videojuego,
+            'otros_generos' => $otros_generos,
+        ]);
     }
 
     /**

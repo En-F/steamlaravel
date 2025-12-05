@@ -8,9 +8,10 @@ use App\Models\Videojuego;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return redirect()->route('videojuegos.index');
+// });
+
 
 Route::get('/hola', function () {
     $nombre = Request()->query('nombre');
@@ -50,7 +51,7 @@ Route::post('/clientes', function(Request  $request){
         'telefono' => 'nullable|max:255'
     ]);
     Cliente::create($validated);
-        return redirect('/clientes');
+    return redirect('/clientes');
 });
 
 
@@ -72,12 +73,12 @@ Route::get('/clientes/{cliente}/edit', function(Cliente $cliente){
 
 Route::put('/clientes/{cliente}', function(Cliente $cliente,Request $request){
     $validated = $request->validate([
-            'dni'=>'required|max:9|unique:clientes,dni,' . $cliente->id,
-            'nombre'=>'required|max:255',
-            'apellidos'=>'nullable|max:255',
-            'direccion'=>'nullable|max:255',
-            'cospostal'=> 'nullable|numeric|decimal:0|digits:5',
-            'telefono' => 'nullable|max:255'
+        'dni'=>'required|max:9|unique:clientes,dni,' . $cliente->id,
+        'nombre'=>'required|max:255',
+        'apellidos'=>'nullable|max:255',
+        'direccion'=>'nullable|max:255',
+        'cospostal'=> 'nullable|numeric|decimal:0|digits:5',
+        'telefono' => 'nullable|max:255'
         ]);
         $cliente->update($validated);
         return redirect('/clientes');
@@ -95,6 +96,7 @@ Route::resource('generos',GeneroController::class);
 Route::post('videojuegos/{videojuego}/agregar_genero', [VideojuegoController::class,'agregar_genero'])->name('videojuegos.agregar_genero');
 Route::delete('videojuegos/{videojuego}/quitar_genero/{genero}', [VideojuegoController::class,'quitar_genero'])->name('videojuegos.quitar_genero');
 
+Route::redirect('/',route('videojuegos.index'));
 
 
 

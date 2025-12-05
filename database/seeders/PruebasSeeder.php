@@ -49,6 +49,11 @@ class PruebasSeeder extends Seeder
             ['genero' => 'Ajedrez']
         ]);
 
+        DB::table('hardware')->insert([
+            ['nombre' => 'Steam Controller','descripcion'=> '...','precio'=> 80.00],
+            ['nombre' => 'Steam Machine','descripcion'=> '...','precio'=> 800.00]
+        ]);
+
         }
 
     }
